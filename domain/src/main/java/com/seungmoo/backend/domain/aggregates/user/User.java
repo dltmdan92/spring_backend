@@ -4,6 +4,7 @@ import com.seungmoo.backend.domain.aggregates.common.BaseEntity;
 import com.seungmoo.backend.domain.constants.RoleType;
 import com.seungmoo.backend.domain.converters.RoleTypeListConverter;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Builder
+@Audited
 public class User extends BaseEntity {
 
     @Id

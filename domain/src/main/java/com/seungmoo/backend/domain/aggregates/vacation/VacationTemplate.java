@@ -1,21 +1,20 @@
 package com.seungmoo.backend.domain.aggregates.vacation;
 
 import com.seungmoo.backend.domain.aggregates.common.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
-import java.time.Year;
 import java.util.List;
 
 
 @Entity
 @Table(name = "vacation_template")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
+@Builder
+@Audited
 public class VacationTemplate extends BaseEntity {
 
     @Id
@@ -24,7 +23,7 @@ public class VacationTemplate extends BaseEntity {
     private Long vacationTemplateId;
 
     @Column(name = "year")
-    private Year year;
+    private int year;
 
     @Column(name = "user_id")
     private Long userId;

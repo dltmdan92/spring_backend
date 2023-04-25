@@ -29,6 +29,8 @@ public class UserService {
         }
 
         userRepository.save(userMapper.toEntity(userDTO, passwordEncoder));
+
+        // TODO vacationtemplate 생성 (휴가 15개 기본 셋팅)
     }
 
     @Transactional(readOnly = true)

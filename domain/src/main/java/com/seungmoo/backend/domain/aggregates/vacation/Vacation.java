@@ -2,10 +2,8 @@ package com.seungmoo.backend.domain.aggregates.vacation;
 
 import com.seungmoo.backend.domain.aggregates.common.BaseEntity;
 import com.seungmoo.backend.domain.constants.VacationType;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,8 +12,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "vacation")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
+@Builder
+@Audited
 public class Vacation extends BaseEntity {
 
     @Id

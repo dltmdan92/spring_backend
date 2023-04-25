@@ -23,7 +23,8 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new SessionUserInterceptor(sessionProvider))
-                .addPathPatterns("/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/swagger-ui/**");
     }
 
     @Override
@@ -33,7 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
+        http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll()).csrf().disable();
         return http.build();
     }
 }

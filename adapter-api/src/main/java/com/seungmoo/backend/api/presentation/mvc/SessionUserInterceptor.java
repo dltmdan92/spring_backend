@@ -21,9 +21,7 @@ public class SessionUserInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("request: " + request);
         if (handler instanceof HandlerMethod) {
-            System.out.println("HandlerMethod : " + handler);
             HandlerMethod handlerMethod = (HandlerMethod) handler;
 
             if (handlerMethod.getMethod().isAnnotationPresent(AuthRequired.class)) {
