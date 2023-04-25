@@ -1,0 +1,36 @@
+backend:
+  datasource:
+    main:
+      jdbc-url: jdbc:mysql://database-1.cluster-ce0nnd4zss97.ap-northeast-2.rds.amazonaws.com
+      username: seungmoo
+      password: 1234qwer
+      extra:
+        maximum-pool-size: 50
+    replica:
+      jdbc-url: jdbc:mysql://database-1.cluster-ro-ce0nnd4zss97.ap-northeast-2.rds.amazonaws.com
+      username: seungmoo
+      password: 1234qwer
+      extra:
+        maximum-pool-size: 50
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    open-in-view: false
+    generate-ddl: false
+    properties:
+      org:
+        hibernate:
+          envers:
+            audit_table_suffix: _history
+            store_data_at_delete: true
+      hibernate:
+        create_empty_composites:
+          enabled: true
+        format_sql: true
+        show_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
