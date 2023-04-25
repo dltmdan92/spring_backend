@@ -21,6 +21,8 @@ dependencies {
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
+
 }
 
 test {
