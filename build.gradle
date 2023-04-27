@@ -1,5 +1,5 @@
 plugins {
-	id 'java'
+	id 'java-library'
 	id 'org.springframework.boot' version "${springBootVersion}"
 	id 'io.spring.dependency-management' version "${springGradleDependencyManagementVersion}"
 }
@@ -28,9 +28,12 @@ jar {
 	enabled = true
 }
 
+test {
+	useJUnitPlatform()
+}
+
 subprojects {
 	apply plugin: "java-library"
-	apply plugin: "idea"
 	apply plugin: "io.spring.dependency-management"
 
 	dependencyManagement {
@@ -66,10 +69,11 @@ subprojects {
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'io.projectreactor:reactor-test'
 		testImplementation 'org.springframework.security:spring-security-test'
-	}
 
-	tasks.named('test') {
-		useJUnitPlatform()
+		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+		testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.3.1'
+
+		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 	}
 
 }

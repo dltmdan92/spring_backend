@@ -1,6 +1,6 @@
 package com.seungmoo.backend.api.presentation.mvc;
 
-import com.seungmoo.backend.api.exceptions.TokenInvalidException;
+import com.seungmoo.backend.api.exceptions.TokenIsEmptyException;
 import com.seungmoo.backend.api.presentation.annotations.AuthRequired;
 import com.seungmoo.backend.api.service.user.models.SessionUser;
 import com.seungmoo.backend.api.service.user.providers.SessionProvider;
@@ -28,7 +28,7 @@ public class SessionUserInterceptor implements HandlerInterceptor {
                 String token = resolveToken(request)
                         .filter(StringUtils::hasText)
                         .filter(sessionProvider::validateToken)
-                        .orElseThrow(TokenInvalidException::new);
+                        .orElseThrow(TokenIsEmptyException::new);
 
                 SessionUser sessionUser = sessionProvider.getSessionUser(token);
                 request.setAttribute("sessionUser", sessionUser);
