@@ -23,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public String getToken(@RequestBody UserLoginRequest userLoginRequest) throws JsonProcessingException {
+    public String makeToken(@RequestBody UserLoginRequest userLoginRequest) throws JsonProcessingException {
         return userLoginService.getToken(userLoginRequest);
     }
 

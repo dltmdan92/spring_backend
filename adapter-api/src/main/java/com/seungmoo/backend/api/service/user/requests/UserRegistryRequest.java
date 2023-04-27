@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRegistryRequest {
-    private String password;
     private String username;
+    private String password;
     private String email;
     private List<RoleType> roles;
 }

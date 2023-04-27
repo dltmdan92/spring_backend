@@ -49,10 +49,18 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+		// Mapstruct
+		implementation("org.mapstruct:mapstruct:${mapstructVersion}")
+		implementation("org.projectlombok:lombok-mapstruct-binding:${mapstructBindingVersion}")
+		annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+		annotationProcessor ("org.projectlombok:lombok-mapstruct-binding:${mapstructBindingVersion}")
+
 		compileOnly 'org.projectlombok:lombok'
 		testCompileOnly("org.projectlombok:lombok")
 		testAnnotationProcessor("org.projectlombok:lombok")
 		annotationProcessor("org.projectlombok:lombok")
+
 		runtimeOnly 'com.mysql:mysql-connector-j'
 		annotationProcessor 'org.projectlombok:lombok'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'

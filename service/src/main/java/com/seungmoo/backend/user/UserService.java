@@ -6,12 +6,14 @@ import com.seungmoo.backend.exceptions.UserEmailAlreadyExistsException;
 import com.seungmoo.backend.user.dtos.UserDTO;
 import com.seungmoo.backend.user.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -35,7 +37,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Optional<UserDTO> getUser(String email, String flatPassword) {
-        return userRepository.findByEmailAndPassword(email, passwordEncoder.encode(flatPassword))
+        return userRepository.findByEmail(email)
+                .filter(user -> passwordEncoder.matches(flatPassword, user.getPassword()))
                 .map(userMapper::toDTO);
     }
 

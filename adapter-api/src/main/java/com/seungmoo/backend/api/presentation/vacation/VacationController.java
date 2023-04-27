@@ -19,8 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VacationController {
 
+    @Parameter(in = ParameterIn.HEADER, name = HttpHeaders.AUTHORIZATION, required = true, description = "'Bearer {token}' 형식으로 넣어주세요.")
     @AuthRequired
-    @Parameter(in = ParameterIn.HEADER, name = HttpHeaders.AUTHORIZATION)
     @GetMapping("/auth")
     public List<String> helloAuthRequired(SessionUser sessionUser) {
         log.info("sessionUser : " + sessionUser.getUsername());

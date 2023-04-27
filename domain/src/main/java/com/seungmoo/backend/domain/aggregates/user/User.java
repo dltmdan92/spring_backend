@@ -4,6 +4,8 @@ import com.seungmoo.backend.domain.aggregates.common.BaseEntity;
 import com.seungmoo.backend.domain.constants.RoleType;
 import com.seungmoo.backend.domain.converters.RoleTypeListConverter;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -16,6 +18,8 @@ import java.util.List;
 @Getter
 @Builder
 @Audited
+@SQLDelete(sql = "UPDATE user SET deleted_at = current_timestamp WHERE user_id = ?")
+@Where(clause = "deleted_at is null")
 public class User extends BaseEntity {
 
     @Id

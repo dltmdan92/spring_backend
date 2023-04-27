@@ -3,6 +3,8 @@ package com.seungmoo.backend.domain.aggregates.vacation;
 import com.seungmoo.backend.domain.aggregates.common.BaseEntity;
 import com.seungmoo.backend.domain.constants.VacationType;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -16,6 +18,8 @@ import java.time.LocalDate;
 @Getter
 @Builder
 @Audited
+@SQLDelete(sql = "UPDATE vacation SET deleted_at = current_timestamp WHERE vacation_id = ?")
+@Where(clause = "deleted_at is null")
 public class Vacation extends BaseEntity {
 
     @Id
