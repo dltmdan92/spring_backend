@@ -1,6 +1,7 @@
 package com.seungmoo.backend.api.presentation.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.seungmoo.backend.api.presentation.templates.Resource;
 import com.seungmoo.backend.api.service.user.UserLoginService;
 import com.seungmoo.backend.api.service.user.UserRegistryService;
 import com.seungmoo.backend.api.service.user.requests.UserLoginRequest;
@@ -26,8 +27,10 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public String makeToken(@RequestBody UserLoginRequest userLoginRequest) throws JsonProcessingException {
-        return userLoginService.getToken(userLoginRequest);
+    public Resource<String> makeToken(@RequestBody UserLoginRequest userLoginRequest) throws JsonProcessingException {
+        return Resource.<String>builder()
+                .data(userLoginService.getToken(userLoginRequest))
+                .build();
     }
 
 }

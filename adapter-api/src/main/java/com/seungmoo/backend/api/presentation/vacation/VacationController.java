@@ -1,6 +1,7 @@
 package com.seungmoo.backend.api.presentation.vacation;
 
 import com.seungmoo.backend.api.presentation.annotations.AuthRequired;
+import com.seungmoo.backend.api.presentation.templates.Resource;
 import com.seungmoo.backend.api.service.user.models.SessionUser;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -22,14 +23,18 @@ public class VacationController {
     @Parameter(in = ParameterIn.HEADER, name = HttpHeaders.AUTHORIZATION, required = true, description = "'Bearer {token}' 형식으로 넣어주세요.")
     @AuthRequired
     @GetMapping("/auth")
-    public List<String> helloAuthRequired(SessionUser sessionUser) {
+    public Resource<List<String>> helloAuthRequired(SessionUser sessionUser) {
         log.info("sessionUser : " + sessionUser.getUsername());
-        return List.of("hello", "hello1", "hello2", "auth");
+        return Resource.<List<String>>builder()
+                .data(List.of("hello", "hello1", "hello2", "auth"))
+                .build();
     }
 
     @GetMapping("/non_auth")
-    public List<String> hello() {
-        return List.of("hello", "hello1", "hello2", "non_auth");
+    public Resource<List<String>> hello() {
+        return Resource.<List<String>>builder()
+                .data(List.of("hello", "hello1", "hello2", "non_auth"))
+                .build();
     }
 
 }

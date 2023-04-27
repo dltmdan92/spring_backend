@@ -1,6 +1,8 @@
 package com.seungmoo.backend.api.presentation.user;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.seungmoo.backend.api.AdapterApiApplication;
+import com.seungmoo.backend.api.presentation.templates.Resource;
 import com.seungmoo.backend.api.service.user.requests.UserLoginRequest;
 import com.seungmoo.backend.api.service.user.requests.UserRegistryRequest;
 import com.seungmoo.backend.configuration.utils.ObjectMapperUtils;
@@ -70,10 +72,17 @@ class AuthControllerTest {
                 .andReturn()
                 .getResponse();
 
-        String token = response.getContentAsString();
+        TypeReference<Resource<String>> stringResourceType = new TypeReference<>() {};
+
+        Resource<String> tokenResource = ObjectMapperUtils.readString(response.getContentAsString(), stringResourceType);
 
         this.mockMvc.perform(get("/v1/vacations/auth")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token))
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tokenResource.getData()))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/v1/vacations/non_auth")
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + tokenResource.getData()))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
