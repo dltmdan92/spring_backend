@@ -1,7 +1,7 @@
 package com.seungmoo.backend.api.presentation.mvc;
 
 import com.seungmoo.backend.api.presentation.annotations.AuthRequired;
-import com.seungmoo.backend.api.service.user.models.SessionUser;
+import com.seungmoo.backend.api.presentation.common.models.SessionUser;
 import com.seungmoo.backend.configuration.utils.ObjectMapperUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

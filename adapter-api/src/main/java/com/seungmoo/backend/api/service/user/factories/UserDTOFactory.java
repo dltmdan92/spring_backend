@@ -1,6 +1,6 @@
 package com.seungmoo.backend.api.service.user.factories;
 
-import com.seungmoo.backend.api.service.user.requests.UserRegistryRequest;
+import com.seungmoo.backend.api.service.user.protocols.requests.UserRegistryRequest;
 import com.seungmoo.backend.user.dtos.UserDTO;
 import org.springframework.stereotype.Component;
 

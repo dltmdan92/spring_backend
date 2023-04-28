@@ -1,6 +1,6 @@
 package com.seungmoo.backend.api.presentation.mvc;
 
-import com.seungmoo.backend.api.exceptions.TokenIsEmptyException;
+import com.seungmoo.backend.api.service.user.exceptions.TokenIsEmptyException;
 import com.seungmoo.backend.api.presentation.templates.Resource;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;

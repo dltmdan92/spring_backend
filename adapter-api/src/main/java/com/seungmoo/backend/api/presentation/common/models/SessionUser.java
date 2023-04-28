@@ -1,4 +1,4 @@
-package com.seungmoo.backend.api.service.user.models;
+package com.seungmoo.backend.api.presentation.common.models;
 
 import com.seungmoo.backend.domain.constants.RoleType;
 import lombok.AllArgsConstructor;

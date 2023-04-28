@@ -2,11 +2,10 @@ package com.seungmoo.backend.api.service.user.providers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.seungmoo.backend.api.service.user.factories.UserSessionFactory;
-import com.seungmoo.backend.api.service.user.models.SessionUser;
+import com.seungmoo.backend.api.presentation.common.models.SessionUser;
 import com.seungmoo.backend.user.dtos.UserDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;

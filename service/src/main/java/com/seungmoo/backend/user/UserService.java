@@ -23,16 +23,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signUp(UserDTO userDTO) {
+    public User signUp(UserDTO userDTO) {
         Optional<User> existingUser = userRepository.findByEmail(userDTO.getEmail());
 
         if (existingUser.isPresent()) {
             throw new UserEmailAlreadyExistsException(userDTO.getEmail());
         }
 
-        userRepository.save(userMapper.toEntity(userDTO, passwordEncoder));
-
-        // TODO vacationtemplate 생성 (휴가 15개 기본 셋팅)
+        return userRepository.save(userMapper.toEntity(userDTO, passwordEncoder));
     }
 
     @Transactional(readOnly = true)

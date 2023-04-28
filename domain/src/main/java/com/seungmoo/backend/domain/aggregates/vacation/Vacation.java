@@ -47,4 +47,7 @@ public class Vacation extends BaseEntity {
     @JoinColumn(name = "vacation_template_id", nullable = false)
     private VacationTemplate vacationTemplate;
 
+    void setVacationTemplate(VacationTemplate vacationTemplate) {
+        this.vacationTemplate = vacationTemplate;
+    }
 }

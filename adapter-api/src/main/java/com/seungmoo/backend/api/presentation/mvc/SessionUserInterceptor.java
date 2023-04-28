@@ -1,8 +1,8 @@
 package com.seungmoo.backend.api.presentation.mvc;
 
-import com.seungmoo.backend.api.exceptions.TokenIsEmptyException;
+import com.seungmoo.backend.api.service.user.exceptions.TokenIsEmptyException;
 import com.seungmoo.backend.api.presentation.annotations.AuthRequired;
-import com.seungmoo.backend.api.service.user.models.SessionUser;
+import com.seungmoo.backend.api.presentation.common.models.SessionUser;
 import com.seungmoo.backend.api.service.user.providers.SessionProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;

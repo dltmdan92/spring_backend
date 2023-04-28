@@ -1,4 +1,4 @@
-package com.seungmoo.backend.api.service.user.requests;
+package com.seungmoo.backend.api.service.user.protocols.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
