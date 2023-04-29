@@ -6,6 +6,7 @@ import com.seungmoo.backend.domain.repositories.vacation.VacationTemplateReposit
 import com.seungmoo.backend.vacation.dtos.VacationDTO;
 import com.seungmoo.backend.vacation.dtos.VacationTemplateDTO;
 import com.seungmoo.backend.vacation.exceptions.VacationAddFailedException;
+import com.seungmoo.backend.vacation.exceptions.VacationRemoveFailedException;
 import com.seungmoo.backend.vacation.mappers.VacationTemplateMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +61,18 @@ public class VacationService {
         if (vacationTemplate.isPresent()) {
             vacationTemplate.get().addVacation(vacationType, startDate, endDate, comment);
         } else {
-            throw new VacationAddFailedException();
+            throw new VacationAddFailedException("vacation template이 존재하지 않습니다!");
+        }
+    }
+
+    @Transactional
+    public void deleteVacation(Long userId, Long vacationTemplateId, Long vacationId) {
+        Optional<VacationTemplate> vacationTemplate = vacationTemplateRepository.getVacationTemplateByTemplateId(userId, vacationTemplateId);
+
+        if (vacationTemplate.isPresent()) {
+            vacationTemplate.get().getVacations().removeIf(vacation -> vacation.getVacationId().equals(vacationId));
+        } else {
+            throw new VacationRemoveFailedException("vacation template이 존재하지 않습니다!");
         }
     }
 }

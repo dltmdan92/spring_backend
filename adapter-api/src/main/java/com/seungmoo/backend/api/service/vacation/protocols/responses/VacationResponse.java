@@ -1,4 +1,4 @@
-package com.seungmoo.backend.api.service.vacation.protocols.response;
+package com.seungmoo.backend.api.service.vacation.protocols.responses;
 
 import com.seungmoo.backend.api.service.common.protocols.response.Url;
 import com.seungmoo.backend.domain.constants.VacationType;

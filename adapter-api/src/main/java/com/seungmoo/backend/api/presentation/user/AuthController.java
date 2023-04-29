@@ -8,10 +8,8 @@ import com.seungmoo.backend.api.service.user.protocols.requests.UserLoginRequest
 import com.seungmoo.backend.api.service.user.protocols.requests.UserRegistryRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -22,6 +20,7 @@ public class AuthController {
     private final UserLoginService userLoginService;
 
     @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
     public void signup(@RequestBody UserRegistryRequest userRegistryRequest) {
         userRegistryService.registUser(userRegistryRequest);
     }

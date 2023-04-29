@@ -1,8 +1,8 @@
 package com.seungmoo.backend.api.service.vacation.factories;
 
 import com.seungmoo.backend.api.service.common.protocols.response.Url;
-import com.seungmoo.backend.api.service.vacation.protocols.response.VacationListResponse;
-import com.seungmoo.backend.api.service.vacation.protocols.response.VacationResponse;
+import com.seungmoo.backend.api.service.vacation.protocols.responses.VacationListResponse;
+import com.seungmoo.backend.api.service.vacation.protocols.responses.VacationResponse;
 import com.seungmoo.backend.vacation.dtos.VacationDTO;
 import com.seungmoo.backend.vacation.dtos.VacationTemplateDTO;
 import org.springframework.http.HttpMethod;
