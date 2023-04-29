@@ -1,7 +1,7 @@
 package com.seungmoo.backend.api.presentation.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.seungmoo.backend.api.presentation.templates.Resource;
+import com.seungmoo.backend.api.service.common.protocols.response.Resource;
 import com.seungmoo.backend.api.service.user.UserLoginService;
 import com.seungmoo.backend.api.service.user.UserRegistryService;
 import com.seungmoo.backend.api.service.user.protocols.requests.UserLoginRequest;

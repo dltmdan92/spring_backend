@@ -2,7 +2,7 @@ package com.seungmoo.backend.api.presentation.vacation;
 
 import com.seungmoo.backend.api.presentation.annotations.AuthRequired;
 import com.seungmoo.backend.api.presentation.common.models.SessionUser;
-import com.seungmoo.backend.api.presentation.templates.Resource;
+import com.seungmoo.backend.api.service.common.protocols.response.Resource;
 import com.seungmoo.backend.api.service.vacation.VacationRetrieveService;
 import com.seungmoo.backend.api.service.vacation.protocols.response.VacationListResponse;
 import com.seungmoo.backend.api.service.vacation.protocols.response.VacationResponse;

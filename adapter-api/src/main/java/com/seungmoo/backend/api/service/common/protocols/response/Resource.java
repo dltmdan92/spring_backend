@@ -1,4 +1,4 @@
-package com.seungmoo.backend.api.presentation.templates;
+package com.seungmoo.backend.api.service.common.protocols.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
