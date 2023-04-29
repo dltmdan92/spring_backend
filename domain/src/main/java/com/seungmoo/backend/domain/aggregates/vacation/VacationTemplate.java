@@ -30,7 +30,7 @@ import java.util.List;
 public class VacationTemplate extends BaseEntity {
 
     @Builder
-    private VacationTemplate(int year, Long userId, int maxVacationCount) {
+    public VacationTemplate(int year, Long userId, int maxVacationCount) {
         this.year = year;
         this.userId = userId;
         this.maxVacationCount = maxVacationCount;
@@ -68,7 +68,7 @@ public class VacationTemplate extends BaseEntity {
      * @throws VacationPeriodConflictedException
      */
     public void addVacation(VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment) {
-        addVacation(Vacation.of(vacationType, startDate, endDate, comment));
+        addVacation(Vacation.of(vacationType, startDate, endDate, comment, this));
     }
 
     /**
@@ -81,9 +81,7 @@ public class VacationTemplate extends BaseEntity {
      */
     public void addVacation(Vacation vacation) {
         validateNewVacation(vacation);
-
         this.vacations.add(vacation);
-        vacation.setVacationTemplate(this);
     }
 
     private void validateNewVacation(Vacation newVacation) {

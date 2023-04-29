@@ -9,6 +9,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Entity
@@ -16,11 +17,25 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Builder
 @Audited
 @SQLDelete(sql = "UPDATE vacation SET deleted_at = current_timestamp WHERE vacation_id = ?")
 @Where(clause = "deleted_at is null")
 public class Vacation extends BaseEntity {
+
+    @Builder
+    public Vacation(VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment, VacationTemplate vacationTemplate) {
+        this.vacationType = vacationType;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.comment = comment;
+        this.vacationTemplate = vacationTemplate;
+
+        switch (vacationType) {
+            case YONCHA -> this.days = BigDecimal.valueOf(calculateYonchaDays(startDate, endDate));
+            case BANCHA -> this.days = BigDecimal.valueOf(0.5);
+            case BANBANCHA -> this.days = BigDecimal.valueOf(0.25);
+        }
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,16 +62,28 @@ public class Vacation extends BaseEntity {
     @JoinColumn(name = "vacation_template_id", nullable = false)
     private VacationTemplate vacationTemplate;
 
-    void setVacationTemplate(VacationTemplate vacationTemplate) {
-        this.vacationTemplate = vacationTemplate;
-    }
-
-    public static Vacation of(VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment) {
+    public static Vacation of(VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment, VacationTemplate vacationTemplate) {
         return Vacation.builder()
                 .vacationType(vacationType)
                 .startDate(startDate)
                 .endDate(endDate)
                 .comment(comment)
+                .vacationTemplate(vacationTemplate)
                 .build();
+    }
+
+    private int calculateYonchaDays(LocalDate startDate, LocalDate endDate) {
+        int plusDays = 0;
+        int days = 1;
+        while (startDate.plusDays(plusDays).isBefore(endDate)) {
+            DayOfWeek startDayOfWeek = startDate.plusDays(plusDays).getDayOfWeek();
+            if (startDayOfWeek.equals(DayOfWeek.SATURDAY) || startDayOfWeek.equals(DayOfWeek.SUNDAY)) {
+            } else {
+                days++;
+            }
+            plusDays++;
+        }
+
+        return days;
     }
 }

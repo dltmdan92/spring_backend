@@ -1,7 +1,10 @@
 package com.seungmoo.backend.vacation;
 
+import com.seungmoo.backend.domain.aggregates.vacation.Vacation;
 import com.seungmoo.backend.domain.aggregates.vacation.VacationTemplate;
+import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationDaysExceedMaxCountException;
 import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationOnHolidayException;
+import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationPeriodConflictedException;
 import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationStartDateIsAfterThanTodayException;
 import com.seungmoo.backend.domain.constants.VacationType;
 import com.seungmoo.backend.domain.repositories.vacation.VacationTemplateRepository;
@@ -71,6 +74,49 @@ class VacationServiceTest {
                             .build()));
 
             assertThrows(VacationOnHolidayException.class, () -> vacationService.addVacation(1L, 1L, VacationType.YONCHA, LocalDate.of(2023, 6,10), LocalDate.of(2023,6,10), "연차 입니다."));
+        }
+
+        @Test
+        @DisplayName("add vacation failed - VacationDaysExceedMaxCountException")
+        void addVacationFailedVacationDaysExceedMaxCountException() {
+            VacationTemplate mockVacationTemplate = VacationTemplate.builder()
+                    .year(2023)
+                    .userId(1L)
+                    .maxVacationCount(15)
+                    .build();
+
+            // 5일씩
+            Vacation v1 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 12), LocalDate.of(2023, 6, 16), "", mockVacationTemplate);
+            Vacation v2 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 19), LocalDate.of(2023, 6, 23), "", mockVacationTemplate);
+            Vacation v3 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 26), LocalDate.of(2023, 6, 30), "", mockVacationTemplate);
+
+            mockVacationTemplate.addVacation(v1);
+            mockVacationTemplate.addVacation(v2);
+            mockVacationTemplate.addVacation(v3);
+
+            given(vacationTemplateRepository.getVacationTemplateByTemplateId(any(), any())).willReturn(Optional.of(mockVacationTemplate));
+
+            assertThrows(VacationDaysExceedMaxCountException.class, () -> vacationService.addVacation(1L, 1L, VacationType.YONCHA, LocalDate.of(2023,7,3), LocalDate.of(2023,7,3), ""));
+        }
+
+        @Test
+        @DisplayName("add vacation failed - VacationPeriodConflictedException")
+        void addVacationFailedVacationPeriodConflictedException() {
+            VacationTemplate mockVacationTemplate = VacationTemplate.builder()
+                    .year(2023)
+                    .userId(1L)
+                    .maxVacationCount(15)
+                    .build();
+
+            Vacation v1 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 12), LocalDate.of(2023, 6, 16), "", mockVacationTemplate);
+            Vacation v2 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 19), LocalDate.of(2023, 6, 23), "", mockVacationTemplate);
+
+            mockVacationTemplate.addVacation(v1);
+            mockVacationTemplate.addVacation(v2);
+
+            given(vacationTemplateRepository.getVacationTemplateByTemplateId(any(), any())).willReturn(Optional.of(mockVacationTemplate));
+
+            assertThrows(VacationPeriodConflictedException.class, () -> vacationService.addVacation(1L, 1L, VacationType.YONCHA, LocalDate.of(2023,6,13), LocalDate.of(2023,6,14), ""));
         }
 
     }
