@@ -47,7 +47,6 @@ public class DataSourceConfiguration {
     @Bean(destroyMethod = "close")
     @ConfigurationProperties(prefix = "backend.datasource.main.extra")
     public HikariDataSource mainDataSource() {
-        System.out.println("mainUrl : " + mainUrl);
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
                 .url(mainUrl)

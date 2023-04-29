@@ -23,7 +23,6 @@ public class VacationRetrieveFactory {
                 .maxVacationDays(vacationTemplateDTO.getMaxVacationCount())
                 .reservedVacationDays(toReservedVacationDays(vacationTemplateDTO))
                 .vacations(toVacationResponses(vacationTemplateDTO))
-                // TODO .urls(toUrls)
                 .build();
     }
 

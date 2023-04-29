@@ -21,5 +21,4 @@ public class VacationListResponse {
     private int maxVacationDays;
     private BigDecimal reservedVacationDays;
     private List<VacationResponse> vacations = Collections.emptyList();
-    private Map<String, Url> urls;
 }
