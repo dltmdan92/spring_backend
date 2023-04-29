@@ -29,12 +29,7 @@ public class VacationService {
 
     @Transactional
     public void createNewVacationTemplate(Long userId, int year, int maxVacationCount) {
-        VacationTemplate newVacationTemplate = VacationTemplate.builder()
-                .userId(userId)
-                .year(year)
-                .maxVacationCount(maxVacationCount)
-                .build();
-        vacationTemplateRepository.save(newVacationTemplate);
+        vacationTemplateRepository.save(VacationTemplate.of(year, userId, maxVacationCount));
     }
 
     @Transactional(readOnly = true)
@@ -57,7 +52,6 @@ public class VacationService {
     @Transactional
     public void addVacation(Long userId, Long vacationTemplateId, VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment) {
         Optional<VacationTemplate> vacationTemplate = vacationTemplateRepository.getVacationTemplateByTemplateId(userId, vacationTemplateId);
-
         if (vacationTemplate.isPresent()) {
             vacationTemplate.get().addVacation(vacationType, startDate, endDate, comment);
         } else {

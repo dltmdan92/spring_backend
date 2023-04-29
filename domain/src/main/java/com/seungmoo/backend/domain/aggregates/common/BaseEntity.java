@@ -26,7 +26,7 @@ public abstract class BaseEntity {
     @Column(name = "created_by", nullable = false, updatable = false)
     @CreatedBy
     @NotAudited
-    private String createdBy;
+    private String createdBy = "SYSTEM";
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
@@ -36,7 +36,7 @@ public abstract class BaseEntity {
     @Column(name = "updated_by")
     @LastModifiedBy
     @NotAudited
-    private String updatedBy;
+    private String updatedBy = "SYSTEM";
 
     @Column(name = "updated_at", nullable = false)
     @LastModifiedDate

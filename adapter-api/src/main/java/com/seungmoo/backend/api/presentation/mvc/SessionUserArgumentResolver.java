@@ -20,7 +20,6 @@ public class SessionUserArgumentResolver implements HandlerMethodArgumentResolve
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        System.out.println("resolveArgument");
         Object sessionUser = webRequest.getAttribute("sessionUser", RequestAttributes.SCOPE_REQUEST);
         return null == sessionUser ? null : ObjectMapperUtils.convertValue(sessionUser, SessionUser.class);
     }

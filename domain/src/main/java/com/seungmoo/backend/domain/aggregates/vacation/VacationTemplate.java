@@ -54,6 +54,14 @@ public class VacationTemplate extends BaseEntity {
     @OneToMany(mappedBy = "vacationTemplate", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vacation> vacations;
 
+    public static VacationTemplate of(int year, Long userId, int maxVacationCount) {
+        return VacationTemplate.builder()
+                .year(year)
+                .userId(userId)
+                .maxVacationCount(maxVacationCount)
+                .build();
+    }
+
 
     /**
      *
@@ -68,7 +76,11 @@ public class VacationTemplate extends BaseEntity {
      * @throws VacationPeriodConflictedException
      */
     public void addVacation(VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment) {
-        addVacation(Vacation.of(vacationType, startDate, endDate, comment, this));
+        switch (vacationType) {
+            case YONCHA -> addVacation(Vacation.yoncha(startDate, endDate, comment, this));
+            case BANCHA -> addVacation(Vacation.bancha(startDate, comment, this));
+            case BANBANCHA -> addVacation(Vacation.banbancha(startDate, comment, this));
+        }
     }
 
     /**

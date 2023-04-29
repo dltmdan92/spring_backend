@@ -86,9 +86,9 @@ class VacationServiceTest {
                     .build();
 
             // 5일씩
-            Vacation v1 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 12), LocalDate.of(2023, 6, 16), "", mockVacationTemplate);
-            Vacation v2 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 19), LocalDate.of(2023, 6, 23), "", mockVacationTemplate);
-            Vacation v3 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 26), LocalDate.of(2023, 6, 30), "", mockVacationTemplate);
+            Vacation v1 = Vacation.yoncha(LocalDate.of(2023, 6, 12), LocalDate.of(2023, 6, 16), "", mockVacationTemplate);
+            Vacation v2 = Vacation.yoncha(LocalDate.of(2023, 6, 19), LocalDate.of(2023, 6, 23), "", mockVacationTemplate);
+            Vacation v3 = Vacation.yoncha(LocalDate.of(2023, 6, 26), LocalDate.of(2023, 6, 30), "", mockVacationTemplate);
 
             mockVacationTemplate.addVacation(v1);
             mockVacationTemplate.addVacation(v2);
@@ -108,8 +108,8 @@ class VacationServiceTest {
                     .maxVacationCount(15)
                     .build();
 
-            Vacation v1 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 12), LocalDate.of(2023, 6, 16), "", mockVacationTemplate);
-            Vacation v2 = Vacation.of(VacationType.YONCHA, LocalDate.of(2023, 6, 19), LocalDate.of(2023, 6, 23), "", mockVacationTemplate);
+            Vacation v1 = Vacation.yoncha(LocalDate.of(2023, 6, 12), LocalDate.of(2023, 6, 16), "", mockVacationTemplate);
+            Vacation v2 = Vacation.yoncha(LocalDate.of(2023, 6, 19), LocalDate.of(2023, 6, 23), "", mockVacationTemplate);
 
             mockVacationTemplate.addVacation(v1);
             mockVacationTemplate.addVacation(v2);

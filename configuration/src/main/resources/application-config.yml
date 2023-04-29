@@ -1,13 +1,13 @@
 backend:
   datasource:
     main:
-      jdbc-url: jdbc:mysql://database-1.cluster-ce0nnd4zss97.ap-northeast-2.rds.amazonaws.com/croquis
+      jdbc-url: jdbc:mysql://database-1.cluster-ce0nnd4zss97.ap-northeast-2.rds.amazonaws.com/croquis?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
       username: seungmoo
       password: 1234qwer
       extra:
         maximum-pool-size: 50
     replica:
-      jdbc-url: jdbc:mysql://database-1.cluster-ro-ce0nnd4zss97.ap-northeast-2.rds.amazonaws.com/croquis
+      jdbc-url: jdbc:mysql://database-1.cluster-ro-ce0nnd4zss97.ap-northeast-2.rds.amazonaws.com/croquis?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
       username: seungmoo
       password: 1234qwer
       extra:
