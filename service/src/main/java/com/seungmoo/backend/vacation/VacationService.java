@@ -16,7 +16,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -30,6 +32,11 @@ public class VacationService {
     @Transactional
     public void createNewVacationTemplate(Long userId, int year, int maxVacationCount) {
         vacationTemplateRepository.save(VacationTemplate.of(year, userId, maxVacationCount));
+    }
+
+    @Transactional
+    public void createNewVacationTemplate(List<Long> userIds, int year, int maxVacationCount) {
+        userIds.forEach(userId -> createNewVacationTemplate(userId, year, maxVacationCount));
     }
 
     @Transactional(readOnly = true)
@@ -68,5 +75,12 @@ public class VacationService {
         } else {
             throw new VacationRemoveFailedException("vacation template이 존재하지 않습니다!");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<VacationTemplateDTO> getVacationTemplates(List<Long> userIds, int year) {
+        return vacationTemplateRepository.getVacationTemplates(userIds, year).stream()
+                .map(vacationTemplateMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

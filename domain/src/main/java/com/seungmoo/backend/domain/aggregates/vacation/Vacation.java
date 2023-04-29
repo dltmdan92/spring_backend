@@ -20,6 +20,7 @@ import java.time.LocalDate;
 @Audited
 @SQLDelete(sql = "UPDATE vacation SET deleted_at = current_timestamp WHERE vacation_id = ?")
 @Where(clause = "deleted_at is null")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Vacation extends BaseEntity {
 
     @Builder
@@ -40,6 +41,7 @@ public class Vacation extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vacation_id")
+    @EqualsAndHashCode.Include
     private Long vacationId;
 
     @Enumerated(value = EnumType.STRING)

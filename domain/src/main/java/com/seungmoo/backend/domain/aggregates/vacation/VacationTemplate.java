@@ -27,6 +27,7 @@ import java.util.List;
 @Audited
 @SQLDelete(sql = "UPDATE vacation_template SET deleted_at = current_timestamp WHERE vacation_template_id = ?")
 @Where(clause = "deleted_at is null")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class VacationTemplate extends BaseEntity {
 
     @Builder
@@ -40,6 +41,7 @@ public class VacationTemplate extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vacation_template_id")
+    @EqualsAndHashCode.Include
     private Long vacationTemplateId;
 
     @Column(name = "year")
@@ -51,8 +53,8 @@ public class VacationTemplate extends BaseEntity {
     @Column(name = "max_vacation_count")
     private int maxVacationCount;
 
-    @OneToMany(mappedBy = "vacationTemplate", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vacation> vacations;
+    @OneToMany(mappedBy = "vacationTemplate", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Vacation> vacations = new ArrayList<>();
 
     public static VacationTemplate of(int year, Long userId, int maxVacationCount) {
         return VacationTemplate.builder()

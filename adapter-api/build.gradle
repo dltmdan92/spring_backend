@@ -2,19 +2,10 @@ plugins {
     id 'org.springframework.boot'
 }
 
-group 'com.seungmoo'
-version '0.0.1-SNAPSHOT'
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation(project(":configuration"))
     implementation(project(":service"))
     implementation(project(":domain"))
-
-    implementation 'org.apache.groovy:groovy:4.0.2'
 
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'

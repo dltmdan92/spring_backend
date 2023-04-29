@@ -7,11 +7,14 @@ import com.seungmoo.backend.user.dtos.UserDTO;
 import com.seungmoo.backend.user.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -38,6 +41,13 @@ public class UserService {
         return userRepository.findByEmail(email)
                 .filter(user -> passwordEncoder.matches(flatPassword, user.getPassword()))
                 .map(userMapper::toDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDTO> getUsers(Pageable pageable) {
+        return userRepository.findAllUsers(pageable).stream()
+                .map(userMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
 }
