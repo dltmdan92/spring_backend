@@ -1,4 +1,4 @@
-package com.seungmoo.backend.exceptions;
+package com.seungmoo.backend.user.exceptions;
 
 public class UserNotExistsException extends RuntimeException {
     public UserNotExistsException(String email) {

@@ -50,4 +50,13 @@ public class Vacation extends BaseEntity {
     void setVacationTemplate(VacationTemplate vacationTemplate) {
         this.vacationTemplate = vacationTemplate;
     }
+
+    public static Vacation of(VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment) {
+        return Vacation.builder()
+                .vacationType(vacationType)
+                .startDate(startDate)
+                .endDate(endDate)
+                .comment(comment)
+                .build();
+    }
 }

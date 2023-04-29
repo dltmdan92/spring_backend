@@ -2,8 +2,10 @@ package com.seungmoo.backend.domain.aggregates.vacation;
 
 import com.seungmoo.backend.domain.aggregates.common.BaseEntity;
 import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationDaysExceedMaxCountException;
+import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationOnHolidayException;
 import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationPeriodConflictedException;
 import com.seungmoo.backend.domain.aggregates.vacation.exceptions.VacationStartDateIsAfterThanTodayException;
+import com.seungmoo.backend.domain.constants.VacationType;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -11,6 +13,7 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +54,31 @@ public class VacationTemplate extends BaseEntity {
     @OneToMany(mappedBy = "vacationTemplate", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vacation> vacations;
 
+
+    /**
+     *
+     * @param vacationType
+     * @param startDate
+     * @param endDate
+     * @param comment
+     *
+     * @throws VacationStartDateIsAfterThanTodayException
+     * @throws VacationOnHolidayException
+     * @throws VacationDaysExceedMaxCountException
+     * @throws VacationPeriodConflictedException
+     */
+    public void addVacation(VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment) {
+        addVacation(Vacation.of(vacationType, startDate, endDate, comment));
+    }
+
+    /**
+     *
+     * @param vacation
+     * @throws VacationStartDateIsAfterThanTodayException
+     * @throws VacationOnHolidayException
+     * @throws VacationDaysExceedMaxCountException
+     * @throws VacationPeriodConflictedException
+     */
     public void addVacation(Vacation vacation) {
         validateNewVacation(vacation);
 
@@ -62,6 +90,15 @@ public class VacationTemplate extends BaseEntity {
         // 휴가 날짜는 오늘 부터
         if (newVacation.getStartDate().isBefore(LocalDate.now())) {
             throw new VacationStartDateIsAfterThanTodayException();
+        }
+
+        // start_date or end_date가 공휴일인가?
+        DayOfWeek weekDayOfStartDate = newVacation.getStartDate().getDayOfWeek();
+        DayOfWeek weekDayOfEndDate = newVacation.getEndDate().getDayOfWeek();
+
+        if (weekDayOfStartDate.equals(DayOfWeek.SATURDAY) || weekDayOfStartDate.equals(DayOfWeek.SUNDAY) ||
+                weekDayOfEndDate.equals(DayOfWeek.SATURDAY) || weekDayOfEndDate.equals(DayOfWeek.SUNDAY)) {
+            throw new VacationOnHolidayException();
         }
 
         BigDecimal asisVacationDays = vacations.stream()
@@ -81,8 +118,6 @@ public class VacationTemplate extends BaseEntity {
         if (newVacationConflicted) {
             throw new VacationPeriodConflictedException();
         }
-
-        // start_date or end_date가 공휴일인가?
 
     }
 

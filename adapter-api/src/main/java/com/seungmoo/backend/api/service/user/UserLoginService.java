@@ -3,7 +3,7 @@ package com.seungmoo.backend.api.service.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.seungmoo.backend.api.service.user.providers.SessionProvider;
 import com.seungmoo.backend.api.service.user.protocols.requests.UserLoginRequest;
-import com.seungmoo.backend.exceptions.UserNotExistsException;
+import com.seungmoo.backend.user.exceptions.UserNotExistsException;
 import com.seungmoo.backend.user.UserService;
 import com.seungmoo.backend.user.dtos.UserDTO;
 import lombok.RequiredArgsConstructor;

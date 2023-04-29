@@ -3,7 +3,7 @@ package com.seungmoo.backend.api.service.user;
 import com.seungmoo.backend.api.service.user.factories.UserDTOFactory;
 import com.seungmoo.backend.api.service.user.protocols.requests.UserRegistryRequest;
 import com.seungmoo.backend.domain.aggregates.user.User;
-import com.seungmoo.backend.exceptions.UserEmailAlreadyExistsException;
+import com.seungmoo.backend.user.exceptions.UserEmailAlreadyExistsException;
 import com.seungmoo.backend.user.UserService;
 import com.seungmoo.backend.vacation.VacationService;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,7 @@ package com.seungmoo.backend.user;
 
 import com.seungmoo.backend.domain.aggregates.user.User;
 import com.seungmoo.backend.domain.repositories.user.UserRepository;
-import com.seungmoo.backend.exceptions.UserEmailAlreadyExistsException;
+import com.seungmoo.backend.user.exceptions.UserEmailAlreadyExistsException;
 import com.seungmoo.backend.user.dtos.UserDTO;
 import com.seungmoo.backend.user.mappers.UserMapper;
 import lombok.RequiredArgsConstructor;

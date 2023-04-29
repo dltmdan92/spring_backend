@@ -1,9 +1,11 @@
 package com.seungmoo.backend.vacation;
 
 import com.seungmoo.backend.domain.aggregates.vacation.VacationTemplate;
+import com.seungmoo.backend.domain.constants.VacationType;
 import com.seungmoo.backend.domain.repositories.vacation.VacationTemplateRepository;
 import com.seungmoo.backend.vacation.dtos.VacationDTO;
 import com.seungmoo.backend.vacation.dtos.VacationTemplateDTO;
+import com.seungmoo.backend.vacation.exceptions.VacationAddFailedException;
 import com.seungmoo.backend.vacation.mappers.VacationTemplateMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -50,4 +53,14 @@ public class VacationService {
                 .findFirst();
     }
 
+    @Transactional
+    public void addVacation(Long userId, Long vacationTemplateId, VacationType vacationType, LocalDate startDate, LocalDate endDate, String comment) {
+        Optional<VacationTemplate> vacationTemplate = vacationTemplateRepository.getVacationTemplateByTemplateId(userId, vacationTemplateId);
+
+        if (vacationTemplate.isPresent()) {
+            vacationTemplate.get().addVacation(vacationType, startDate, endDate, comment);
+        } else {
+            throw new VacationAddFailedException();
+        }
+    }
 }
