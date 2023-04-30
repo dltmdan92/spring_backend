@@ -93,7 +93,7 @@ public class VacationTemplate extends BaseEntity {
      * @throws VacationDaysExceedMaxCountException
      * @throws VacationPeriodConflictedException
      */
-    public void addVacation(Vacation vacation) {
+    private void addVacation(Vacation vacation) {
         validateNewVacation(vacation);
         this.vacations.add(vacation);
     }

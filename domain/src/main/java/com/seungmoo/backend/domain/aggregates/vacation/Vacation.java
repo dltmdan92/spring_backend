@@ -64,7 +64,7 @@ public class Vacation extends BaseEntity {
     @JoinColumn(name = "vacation_template_id", nullable = false)
     private VacationTemplate vacationTemplate;
 
-    public static Vacation yoncha(LocalDate startDate, LocalDate endDate, String comment, VacationTemplate vacationTemplate) {
+    static Vacation yoncha(LocalDate startDate, LocalDate endDate, String comment, VacationTemplate vacationTemplate) {
         return Vacation.builder()
                 .vacationType(VacationType.YONCHA)
                 .startDate(startDate)
@@ -74,7 +74,7 @@ public class Vacation extends BaseEntity {
                 .build();
     }
 
-    public static Vacation bancha(LocalDate startDate, String comment, VacationTemplate vacationTemplate) {
+    static Vacation bancha(LocalDate startDate, String comment, VacationTemplate vacationTemplate) {
         return Vacation.builder()
                 .vacationType(VacationType.BANCHA)
                 .startDate(startDate)
@@ -84,7 +84,7 @@ public class Vacation extends BaseEntity {
                 .build();
     }
 
-    public static Vacation banbancha(LocalDate startDate, String comment, VacationTemplate vacationTemplate) {
+    static Vacation banbancha(LocalDate startDate, String comment, VacationTemplate vacationTemplate) {
         return Vacation.builder()
                 .vacationType(VacationType.BANBANCHA)
                 .startDate(startDate)
